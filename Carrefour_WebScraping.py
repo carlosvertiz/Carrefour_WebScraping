@@ -69,7 +69,7 @@ def carrefourMainPage():
     chrome_options.add_argument('--start-maximized')  # Esta línea abrirá el navegador en pantalla completa
 
     # Chromedriver's path, if you dont have it, you can download it in chromedriver page.
-    chrome_driver_path = 'C:/Users/mega_/OneDrive/Desktop/chromedriver.exe'
+    chrome_driver_path = chromedriver.exe'
     chrome_service = ChromeService(executable_path=chrome_driver_path)
 
     # Initialize chrome
