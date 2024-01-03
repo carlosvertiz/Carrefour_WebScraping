@@ -20,7 +20,7 @@ def obtainHtml(url):
     chrome_options.add_argument('--start-maximized')  
 
     #Chromedriver's path, if you dont have it, you can download it in chromedriver page.
-    chrome_driver_path = 'chromedriver.exe'
+    chrome_driver_path = 'C:/Users/mega_/OneDrive/Desktop/chromedriver.exe'
     chrome_service = ChromeService(executable_path=chrome_driver_path)
     # Initialize chrome
     driver = webdriver.Chrome(service=chrome_service, options=chrome_options)
@@ -43,12 +43,14 @@ def dataFromPage(soup):
     This is a generator that will yield the name and price of the products in a page.
     """
     # Search for the product data
-    products_data= soup.find_all('div', "valtech-carrefourar-search-result-0-x-galleryItem valtech-carrefourar-search-result-0-x-galleryItem--normal pa4")
+    products_data= soup.find_all('div', "valtech-carrefourar-search-result-0-x-galleryItem"
+                                 " valtech-carrefourar-search-result-0-x-galleryItem--normal pa4")
 
     # Iter over all the products in the page in order to hace its price and name.
     for product_data in products_data:
         price_element= product_data.find('span', "valtech-carrefourar-product-price-0-x-currencyContainer")
-        products_name = product_data.find('span', class_="vtex-product-summary-2-x-productBrand vtex-product-summary-2-x-brandName t-body")
+        products_name = product_data.find('span', class_="vtex-product-summary-2-x-productBrand"
+                                          " vtex-product-summary-2-x-brandName t-body")
         if price_element:
            # yield products and name
            yield products_name.text.strip(), price_element.text.strip()[2:]
@@ -88,13 +90,17 @@ driver.implicitly_wait(10)
 time.sleep(2)
 
 # find all the category items that can ve display
-elements_selector = 'li.vtex-menu-2-x-menuItem.vtex-menu-2-x-menuItem--MenuCategoryFirstItem.list.vtex-menu-2-x-menuItem.vtex-menu-2-x-menuItem--MenuCategoryFirstItem.vtex-menu-2-x-menuItem--isClosed.vtex-menu-2-x-menuItem--MenuCategoryFirstItem--isClosed'
+elements_selector = ("li.vtex-menu-2-x-menuItem.vtex-menu-2-x-menuItem--MenuCategoryFirstItem"
+                     ".list.vtex-menu-2-x-menuItem.vtex-menu-2-x-menuItem--MenuCategoryFirstItem.vtex-menu-2-x-"
+                     "menuItem--isClosed.vtex-menu-2-x-menuItem--MenuCategoryFirstItem--isClosed")
+
 elements = driver.find_elements(By.CSS_SELECTOR, elements_selector)
 
 page_content = driver.page_source
 soup = BeautifulSoup(page_content, 'html.parser')
 # find all the categories names
-categories  = soup.find_all('div', class_="vtex-menu-2-x-styledLinkContent vtex-menu-2-x-styledLinkContent--MenuCategoryFirstItem flex justify-between nowrap")
+categories  = soup.find_all('div', class_="vtex-menu-2-x-styledLinkContent vtex-menu-2"
+                            "-x-styledLinkContent--MenuCategoryFirstItem flex justify-between nowrap")
 
 next_page = "?page="
 url_page = "https://www.carrefour.com.ar/"
