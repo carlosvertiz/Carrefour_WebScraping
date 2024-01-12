@@ -20,7 +20,7 @@ def obtainHtml(url):
     chrome_options.add_argument('--start-maximized')  
 
     #Chromedriver's path, if you dont have it, you can download it in chromedriver page.
-    chrome_driver_path = 'C:/Users/mega_/OneDrive/Desktop/chromedriver.exe'
+    chrome_driver_path = 'chromedriver.exe'
     chrome_service = ChromeService(executable_path=chrome_driver_path)
     # Initialize chrome
     driver = webdriver.Chrome(service=chrome_service, options=chrome_options)
@@ -69,7 +69,7 @@ def carrefourMainPage():
     chrome_options.add_argument('--start-maximized')  # Esta línea abrirá el navegador en pantalla completa
 
     # Chromedriver's path, if you dont have it, you can download it in chromedriver page.
-    chrome_driver_path = 'C:/Users/mega_/OneDrive/Desktop/chromedriver.exe'
+    chrome_driver_path = 'chromedriver.exe'
     chrome_service = ChromeService(executable_path=chrome_driver_path)
 
     # Initialize chrome
@@ -83,9 +83,10 @@ def carrefourMainPage():
 
 driver = carrefourMainPage()
 # Search the hiding menu and then click it it order the dislpay it.
-element_selector = '[role="presentation"][aria-hidden="true"]'
-elements = driver.find_elements(By.CSS_SELECTOR, element_selector)
-elements[1].click()
+element_selector = '.pa4.pointer.vtex-store-drawer-0-x-openIconContainer'
+elements = driver.find_element(By.CSS_SELECTOR, element_selector)
+print(elements)
+elements.click()
 driver.implicitly_wait(10)
 time.sleep(2)
 
